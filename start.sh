@@ -17,6 +17,11 @@ function notice() {
     echo -e "${COL_GREEN}$1${COL_RESET}"
 }
 
+function create_machine() {
+notice "Creating new machine"
+    docker-machine create --driver virtualbox ${MACHINE}
+}
+
 function machine_setup() {
     # If we're not running on a linux machine, we need to be using docker-machine
     if [ ${OSTYPE} != 'linux-gnu' ]; then
