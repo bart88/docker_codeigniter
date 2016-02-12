@@ -27,6 +27,12 @@ RUN wget -O /usr/local/bin/robo http://robo.li/robo.phar && chmod +x /usr/local/
 # Install composer
 RUN wget -q https://getcomposer.org/installer -O - | php -- --install-dir=/usr/local/bin --filename=composer
 
+
+# XDEBUG
+# Find host ip, then setup xdebug
+RUN HOST=$(ip -4 route show default | grep -Po 'default via \K[\d.]+') && echo "; configuration for php xdebug module\n; priority=20\nzend_extension=xdebug.so\nxdebug.max_nesting_level=500\nxdebug.remote_enable=1\nxdebug.remote_port=9001\nxdebug.remote_host=${HOST}\nxdebug.remote_autostart=1\nxdebug.idekey=PHPSTORM" > /etc/php/mods-available/xdebug.ini
+RUN phpenmod -v ALL -s ALL xdebug
+
 # Add smtp support
 RUN apt-get -y install ssmtp
 RUN echo "sendmail_path = /usr/sbin/ssmtp -t" > /etc/php/mods-available/sendmail.ini
