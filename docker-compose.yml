@@ -1,0 +1,13 @@
+codeigniter:
+  image: codeigniter
+  ports:
+    - "80:80"
+  volumes:
+      - ./code/codeigniter:/web
+      - ./hosts:/etc/hosts
+  hostname: codeigniter
+mysql:
+  image: mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+    hostname: mysql

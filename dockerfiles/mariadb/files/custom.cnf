@@ -1,0 +1,45 @@
+
+[mysqld]
+innodb_file_per_table
+innodb_flush_method = O_DIRECT
+innodb_buffer_pool_size = 512M
+innodb_file_io_threads = 4
+innodb_additional_mem_pool_size = 2M
+innodb_log_files_in_group = 2
+innodb_log_buffer_size = 8M
+#innodb_read_io_threads = 8
+#innodb_write_io_threads = 8
+innodb_thread_concurrency = 0
+innodb_flush_log_at_trx_commit = 0
+innodb_log_file_size = 5242880
+
+slow_query_log = 1
+# /var/log/mysql/mysql-slow.log
+#log_slow_queries
+long_query_time = 1
+log-queries-not-using-indexes
+
+max_heap_table_size = 256M
+tmp_table_size = 256M
+
+#read_buffer_size = 2M
+#read_rnd_buffer_size = 2M
+#sort_buffer_size = 2M
+#join_buffer_size = 256K
+
+#thread_stack = 128K
+#thread_cache_size = 50
+#thread_concurrency = 4
+#query_cache_size = 8M
+#query_cache_limit = 512K
+
+#key_buffer = 2M
+#key_buffer_size = 32M
+
+#max_allowed_packet      = 16M
+
+#query_cache_limit       = 128K
+#query_cache_size        = 64M
+
+#table_cache             = 6400
+
