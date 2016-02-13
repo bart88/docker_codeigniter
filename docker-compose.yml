@@ -1,13 +1,14 @@
 codeigniter:
-  image: codeigniter
+  build: dockerfiles/codeigniter
   ports:
     - "80:80"
   volumes:
       - ./code/codeigniter:/web
       - ./hosts:/etc/hosts
   hostname: codeigniter
+
 mysql:
-  image: mariadb
-    environment:
-      MYSQL_ROOT_PASSWORD: password
-    hostname: mysql
+  build: dockerfiles/mariadb
+  environment:
+    MYSQL_ROOT_PASSWORD: password
+  hostname: mysql

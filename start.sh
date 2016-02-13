@@ -62,6 +62,12 @@ function add_env() {
     eval "$(docker-machine env ${MACHINE})"
 }
 
+function image_build() {
+    if [[ "$(docker images -q $1 2> /dev/null)" == "" ]]; then
+        docker build -t $1 dockerfiles/$1
+    fi
+}
+
 machine_setup
 
 # CREATE CODEIGNITER DIRECTORY
@@ -78,6 +84,10 @@ if [ "${HOST_IP}" != "${DOCKER_HOST_IP}" ]; then
     echo "${DOCKER_HOST_IP} ${DOMAIN} # codeigniter-dev" | sudo tee -a /etc/hosts
 fi
 
+# BUILD OUR DOCKER IMAGES
+image_build "codeigniter"
+image_build "mariadb"
+
 # RUN DOCKER COMPOSE
 notice "Running docker-compose build."
 docker-compose build
@@ -92,7 +102,7 @@ if [ $? != 0 ]; then
     error "Bringing sites up failed"
     exit
 fi
-
+./s
 # If using docker-machine this corrects the xdebug remote host with your actual host ip not the docker-machine host ip.
 if [ ${OSTYPE} != 'linux-gnu' ]; then
     LOCAL_IP=$(ifconfig | sed -En 's/127.0.0.1//;s/.*inet (addr:)?(([0-9]*\.){3}[0-9]*).*/\2/p'| head -1)

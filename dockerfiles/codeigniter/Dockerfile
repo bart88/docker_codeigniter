@@ -18,8 +18,9 @@ RUN apt-add-repository -y ppa:ondrej/php-7.0
 RUN apt-get update
 RUN apt-get -y dist-upgrade
 
-# Install new packages we need
+# Install packages
 RUN apt-get -y install apache2
+RUN apt-get -y install php7.0 php7.0-cli php7.0-common libapache2-mod-php7.0 php-apcu php7.0-curl php7.0-gd php7.0-ldap php7.0-mysql php7.0-opcache php-xdebug libedit-dev vim wget curl ssh mysql-client netcat-openbsd sudo
 
 # Install robo
 RUN wget -O /usr/local/bin/robo http://robo.li/robo.phar && chmod +x /usr/local/bin/robo
@@ -38,9 +39,6 @@ RUN apt-get -y install ssmtp
 RUN echo "sendmail_path = /usr/sbin/ssmtp -t" > /etc/php/mods-available/sendmail.ini
 RUN echo "mailhub=mail:25\nUseTLS=NO\nFromLineOverride=YES" > /etc/ssmtp/ssmtp.conf
 RUN phpenmod -v ALL -s ALL sendmail
-
-# Install packages
-RUN apt-get -y install php7.0 php7.0-cli php7.0-common libapache2-mod-php7.0 php-apcu php7.0-curl php7.0-gd php7.0-ldap php7.0-mysql php7.0-opcache php-xdebug libedit-dev vim wget curl ssh mysql-client netcat-openbsd sudo
 
 # Configure timezone
 RUN echo "Australia/Adelaide" > /etc/timezone; dpkg-reconfigure tzdata

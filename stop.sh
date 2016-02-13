@@ -14,7 +14,7 @@ docker-compose stop
 echo  "Removing containers."
 docker-compose rm -f
 
-notice "Removing entries from hosts file."
+echo "Removing entries from hosts file."
 sed "/# ${HOSTS_TOKEN}/d" /etc/hosts | sudo tee /etc/hosts > /dev/null
 
 echo "Done uninstalling."
