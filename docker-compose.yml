@@ -3,8 +3,7 @@ codeigniter:
   ports:
     - "80:80"
   volumes:
-      - ./code/codeigniter:/web
-      - ./hosts:/etc/hosts
+      - ./codeigniter:/web
   hostname: codeigniter
 
 mysql:

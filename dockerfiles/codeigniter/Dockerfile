@@ -1,4 +1,4 @@
-FROM ubuntu:15.10
+FROM ubuntu:14.04
 
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -28,6 +28,12 @@ RUN wget -O /usr/local/bin/robo http://robo.li/robo.phar && chmod +x /usr/local/
 # Install composer
 RUN wget -q https://getcomposer.org/installer -O - | php -- --install-dir=/usr/local/bin --filename=composer
 
+COPY ./files/apache2-foreground /usr/local/bin/apache2-foreground
+COPY ./files/apache2.conf /etc/apache2/apache2.conf
+
+# Update the default virtualhost
+RUN a2enmod rewrite
+RUN a2dismod vhost_alias
 
 # XDEBUG
 # Find host ip, then setup xdebug
